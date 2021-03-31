@@ -1,0 +1,11 @@
+{
+    "python.formatting.provider": "black",
+    "python.pythonPath": "server/venv/bin/python",
+    "python.autoComplete.extraPaths": [
+        "server/"
+    ],
+    "python.analysis.extraPaths": [
+        "server/"
+    ],
+    "git.ignoreLimitWarning": true,
+}
