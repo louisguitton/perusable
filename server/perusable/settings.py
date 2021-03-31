@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,10 +41,7 @@ DJANGO_APPS = [
     "django.contrib.postgres",
 ]
 
-THIRD_PARTY_APPS = [
-    "rest_framework",
-    "django_filters",
-]
+THIRD_PARTY_APPS = ["rest_framework", "django_filters", "debug_toolbar"]
 
 LOCAL_APPS = [
     "catalog.apps.CatalogConfig",
@@ -52,6 +50,7 @@ LOCAL_APPS = [
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -129,13 +128,22 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-STATIC_URL = "/static/"
-
-
+# Django Rest Framework
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",)
 }
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+STATIC_ROOT = Path(BASE_DIR / "static")
+
+STATIC_URL = "/staticfiles/"
+
+# Debug toolbar
+def custom_show_toolbar(request):
+    return bool(DEBUG)
+
+
+DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": custom_show_toolbar}
+
+TESTING_MODE = 'test' in sys.argv

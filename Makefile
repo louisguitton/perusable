@@ -22,3 +22,6 @@ load-data:
 			catalog/fixtures/wines.json \
 			--app catalog \
 			--format json
+
+pgcli:
+	pgcli postgres://perusable:perusable@localhost:5433/perusable
