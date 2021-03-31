@@ -1,0 +1,23 @@
+# We split the compose configuration for each different environment
+# Ref: https://docs.docker.com/compose/extends/#example-use-case
+version: "3.8"
+
+services:
+  pgadmin:
+    container_name: perusable-pgadmin
+    depends_on:
+      - database
+    image: dpage/pgadmin4
+    environment:
+      # Ref: https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      GUNICORN_ACCESS_LOGFILE: ${GUNICORN_ACCESS_LOGFILE:-/var/lib/pgadmin/gunicorn.access.log}
+    volumes:
+      - perusable-pgadmin:/var/lib/pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+
+volumes:
+  perusable-pgadmin:

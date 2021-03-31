@@ -19,8 +19,18 @@ class Wine(models.Model):
     class Meta:
         indexes = [
             indexes.GinIndex(
-                name='review_author_ln_gin_idx', 
-                fields=['last_name'], 
+                name='catalog_wine_variety_gin_idx', 
+                fields=['variety'], 
                 opclasses=['gin_trgm_ops'],
-            )
+            ),
+            indexes.GinIndex(
+                name='catalog_wine_winery_gin_idx', 
+                fields=['winery'], 
+                opclasses=['gin_trgm_ops'],
+            ),
+            indexes.GinIndex(
+                name='catalog_wine_desc_gin_idx', 
+                fields=['description'], 
+                opclasses=['gin_trgm_ops'],
+            ),
         ]
