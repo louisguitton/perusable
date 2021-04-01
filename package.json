@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "react-bootstrap-typeahead": "^5.1.4"
+  }
+}

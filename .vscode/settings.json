@@ -8,4 +8,7 @@
         "server/"
     ],
     "git.ignoreLimitWarning": true,
+    "files.associations": {
+        "*.js": "javascriptreact"
+    },
 }

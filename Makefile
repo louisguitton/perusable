@@ -13,8 +13,11 @@ migrate-apply:
 shell:
 	docker-compose exec server python manage.py shell
 
-test:
+test-server:
 	docker-compose exec server python manage.py test
+
+test-client:
+	yarn cypress open
 
 load-data:
 	docker-compose exec server \                                                                                                                                                 <aws:of-prod>
